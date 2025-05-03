@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha Mythos</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <!-- Lado esquerdo: personagem + status -->
+  <div class="lado-esquerdo">
+    <div class="personagem-box">
+      <h2>PERSONAGEM</h2>
+    <div class="form-linha">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome">
+    </div>
+    <div class="form-linha dois-campos">
+      <div>
+        <label for="idade">Idade:</label>
+        <input type="text" id="idade" name="idade">
+      </div>
+      <div>
+        <label for="ocupacao">Ocupação:</label>
+        <input type="text" id="ocupacao" name="ocupacao">
+      </div>
+    </div>
+    <div class="form-linha">
+      <label for="arquétipo">Arquétipo:</label>
+      <input type="text" id="arquetipo" name="arquetipo">
+    </div>
+    <div class="form-linha">
+      <label for="peculiaridades">Peculiaridades:</label>
+      <input type="text" id="peculiaridades" name="peculiaridades">
+    </div>
+    <div class="form-linha">
+      <label for="transtornos">Transtornos Mentais:</label>
+      <input type="text" id="transtornos" name="transtornos">
+    </div>
+  </div>
+
+<!-- Caixa de Status -->
+    <div class="status-box">
+      
+      <!-- Pontos de Vida -->
+      <div class="status-item">
+        <div class="status-label">
+          <span class="status-titulo">PV</span><br>
+          <span class="status-sub">pontos de vida</span>
+        </div>
+        <div class="status-valores">
+          <input type="number" id="pv-atual" value="8">
+          <span class="divisor">|</span>
+          <input type="number" id="pv-max" value="8" readonly>
+        </div>
+        <div class="barra barra-verde">
+          <div id="pv-bar" class="preenchimento" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <!-- Sanidade -->
+      <div class="status-item">
+  <div class="status-label-flex">
+    <span class="status-titulo">SANIDADE</span>
+    <button id="botao-d100" class="dado-botao">
+      <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar d100" class="dado-img">
+    </button>
+  </div>
+  <div class="status-valores">
+    <input type="number" id="san-atual" value="5">
+    <span class="divisor">|</span>
+    <input type="number" id="san-max" value="5" readonly>
+  </div>
+  <div class="barra barra-azul">
+    <div id="san-bar" class="preenchimento" style="width: 100%"></div>
+        </div>
+      </div>
+      
+      <!-- Defesa e PD -->
+<div class="status-duplo"> 
+  <!-- Defesa -->
+  <div class="defesa-linha">
+  <div class="defesa-label">DEFESA</div>
+  <div class="defesa-formula">
+    <span class="valor-fixo">10</span>
+    <span class="sinal">+</span>
+    
+    <div class="coluna-defesa">
+      <label for="mod-des">Mod. DES</label>
+      <input type="number" id="mod-des" value="0">
+    </div>
+
+    <span class="sinal">+</span>
+
+    <div class="coluna-defesa">
+      <label for="defesa-bonus">Mod. Aleatório</label>
+      <input type="number" id="defesa-bonus" value="0">
+    </div>
+
+    <span class="sinal">=</span>
+
+    <div class="coluna-defesa">
+      <label for="defesa-total">TOTAL</label>
+      <input type="number" id="defesa-total" value="10" readonly>
+    </div>
+  </div>
+</div>
+
+  <!-- Pontos de Determinação -->
+  <div class="status-coluna">
+    <div class="status-label">
+      <span class="status-titulo">PD</span><br>
+      <span class="status-sub">pontos de determinação</span>
+    </div>
+    <input type="number" id="pd-total" value="6">
+  </div>
+</div>   
+      
+      <!-- Caixa de Combate -->
+  <div class="combate-box">
+  <h2>COMBATE</h2>
+  <div class="combate-linha">
+    <input type="text" id="entrada-combate" placeholder="Ex: 1d8 + 2d6 + 4">
+    <button id="botao-combate" class="dado-botao"><img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img"></button>
+  </div>
+</div>
+      
+      <!-- Inventário -->
+      <div class="inventario-box">
+  <div class="inventario-header">
+    <span class="inventario-titulo">INVENTÁRIO</span>
+    <div class="dropdown">
+      <button id="inventario-add" class="botao-mais">+</button>
+      <div class="dropdown-conteudo">
+        <button onclick="adicionarArma()">Arma</button>
+        <button onclick="adicionarItem()">Item</button>
+        <button onclick="adicionarEquipamento()">Equipamento</button>
+      </div>
+    </div>
+  </div>
+  <div class="inventario-conteudo" id="inventario-conteudo"></div>
+</div>
+      
+      <!-- Hab. e Apt. -->
+      <div class="habilidades-box">
+  <div class="habilidades-header">
+    <span class="habilidade-titulo">HABILIDADES E APTIDÕES</span>
+    <div class="dropdown">
+      <button id="habilidades-add" class="botao-mais2">+</button>
+      <div class="dropdown-conteudo2">
+        <button onclick="adicionarHabilidade()">Habilidade</button>
+        <button onclick="adicionarAptidao()">Aptidão</button>
+      </div>
+    </div>
+  </div>
+  <div class="habilidades-container">
+    <!-- Habilidades e aptidões adicionadas vão aparecer aqui -->
+  </div>
+</div>
+      
+    </div>
+  </div>
+  
+  <!-- Caixa de Atributos -->
+<div class="atributos-box">
+  <h2>ATRIBUTOS</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor</th>
+        <th>Modificador</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>FOR<br>Força</td>
+        <td><input type="number" value="1" data-atributo="FOR" id="atributo-FOR"></td>
+        <td class="modificador">-5</td>
+      </tr>
+      <tr>
+        <td>DES<br>Destreza</td>
+        <td><input type="number" value="1" data-atributo="DES" id="atributo-DES"></td>
+        <td class="modificador">-5</td>
+      </tr>
+      <tr>
+        <td>INT<br>Inteligência</td>
+        <td><input type="number" value="1" data-atributo="INT" id="atributo-INT"></td>
+        <td class="modificador">-5</td>
+      </tr>
+      <tr>
+        <td>CON<br>Constituição</td>
+        <td><input type="number" value="1" data-atributo="CON" id="atributo-CON"></td>
+        <td class="modificador">-5</td>
+      </tr>
+      <tr>
+        <td>CAR<br>Carisma</td>
+        <td><input type="number" value="1" data-atributo="CAR" id="atributo-CAR"></td>
+        <td class="modificador">-5</td>
+      </tr>
+      <tr>
+        <td>SAB<br>Sabedoria</td>
+        <td><input type="number" value="1" data-atributo="SAB" id="atributo-SAB"></td>
+        <td class="modificador">-5</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <!-- Caixa de Perícias -->
+<div class="pericias-box">
+  <h2>PERÍCIAS</h2>
+  <div class="tabela-pericias">
+    <div class="linha-cabecalho">
+      <div class="coluna-nome">Nome da Perícia</div>
+      <div class="coluna-aptidao">Aptidão</div>
+      <div class="coluna-mod">Mod. Perícia</div>
+      <div class="coluna-mod-atrib">Mod. Atributo</div>
+      <div class="coluna-mod-extra">Mod. Aleatório</div>
+      <div class="coluna-dado"></div>
+    </div>
+    
+<!-- linhas de perícia -->
+    <div class="linha-pericia" data-atributo-base="DES">
+      <div class="coluna-nome">Acrobacia (DES)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Adest. Anim. (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="FOR">
+      <div class="coluna-nome">Atletismo (FOR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+
+<div class="linha-pericia" data-atributo-base="CAR">
+      <div class="coluna-nome">Atuação (CAR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Ciências (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="CAR">
+      <div class="coluna-nome">Enganação (CAR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>   
+    
+<div class="linha-pericia" data-atributo-base="CON">
+      <div class="coluna-nome">Fortitude (CON)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="DES">
+      <div class="coluna-nome">Furtividade (DES)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">História (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="CAR">
+      <div class="coluna-nome">Intimidação (CAR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Intuição (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Investigação (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="FOR">
+      <div class="coluna-nome">Luta* (FOR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Medicina (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Natureza (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Ocultismo (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Percepção (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="CAR">
+      <div class="coluna-nome">Persuasão (CAR)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="DES">
+      <div class="coluna-nome">Pontaria* (DES)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="DES">
+      <div class="coluna-nome">Prestidigit. (DES)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Profissão (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="DES">
+      <div class="coluna-nome">Reflexo (DES)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="INT">
+      <div class="coluna-nome">Religião (INT)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Sobreviv. (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>
+    
+<div class="linha-pericia" data-atributo-base="SAB">
+      <div class="coluna-nome">Vontade (SAB)</div>
+      <div class="coluna-aptidao">
+        <select class="aptidao-select">
+          <option value="0">0°</option>
+          <option value="1">1°</option>
+          <option value="2">2°</option>
+          <option value="3">3°</option>
+        </select>
+      </div>
+      <div class="coluna-mod"><input type="number" class="mod-pericia" readonly></div>
+      <div class="coluna-mod-atrib"><input type="number" class="mod-atributo" readonly></div>
+      <div class="coluna-mod-extra"><input type="number" class="mod-extra" value="0"></div>
+      <div class="coluna-dado"><button class="dado-botao">
+  <img src="https://www.svgrepo.com/show/351948/dice-d20.svg" alt="Rolar dado" class="dado-img">
+</button></div>
+    </div>  
+  </div>
+  
+<div class="botoes-salvar">
+  <button onclick="salvarFicha()">Salvar Ficha</button>
+  <button onclick="carregarFicha()">Carregar Ficha</button>
+  <button onclick="limparFicha()">Apagar Ficha</button>
+</div>
+  
+  
+  
+  <div id="resultado-dado" class="popup-dado" style="display: none;">
+  <p id="resultado-texto"></p>
+  <button onclick="fecharPopup()">OK</button>
+</div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+  padding: 30px;
+  font-size: 12px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  max-width: 1280px;     /* Evita ficar muito largo em telas grandes */
+  min-width: 900px;      /* Evita quebrar em telas pequenas */
+  margin: 0 auto;        /* Centraliza na tela */
+  overflow-x: hidden;    /* Impede scroll lateral */
+}
+
+/* 🔽 Novo contêiner lateral para personagem + status */
+.lado-esquerdo {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  gap: 10px;
+}
+
+.personagem-box {
+  padding: 0px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.atributos-box {
+  border: 1px solid white;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 20%;
+}
+
+.personagem-box h2 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid white;
+  padding-bottom: 8px;
+}
+
+.atributos-box h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid white;
+  padding-bottom: 6px;
+}
+
+.form-linha {
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dois-campos {
+  flex-direction: row;
+  gap: 10px;
+}
+
+.form-linha label {
+  font-weight: bold;
+  margin-bottom: 1px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 4px;
+  background-color: black;
+  color: white;
+  text-align: left;
+  border: 1px solid white;
+  box-sizing: border-box;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 4px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th,
+td {
+  border: 1px solid white;
+  padding: 4px;
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+}
+
+.modificador {
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* 🔽 STATUS PV e Sanidade agora colado abaixo da personagem */
+.status-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-label {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.status-label-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.status-titulo {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.status-sub {
+  display: block;
+  font-size: 12px;
+  text-transform: none;
+}
+
+.status-valores {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.status-valores input {
+  width: 40px;
+  text-align: center;
+  padding: 3px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  font-size: 12px;
+}
+
+.divisor {
+  font-size: 14px;
+  margin: 0 4px;
+}
+
+#botao-d100 {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0px;
+  cursor: pointer;
+}
+
+#botao-d100 img {
+  filter: invert(1);
+  width: 16px;
+}
+
+/* 🔽 Barras */
+.barra {
+  width: 100%;
+  max-width: 425px;
+  height: 22px;
+  background-color: black;
+  border: 1px solid white;
+  overflow: hidden;
+}
+
+.preenchimento {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.barra-verde .preenchimento {
+  background-color: #0a3;
+}
+
+.barra-azul .preenchimento {
+  background-color: #027;
+}
+
+/* 🔽 Defesa e PD */
+.status-duplo {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%; /* Corrigido de 110% para evitar overflow */
+}
+
+.status-coluna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.status-defesa-explicacao {
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Corrigido valor do border (era "1Opx" com "O" maiúsculo) */
+.status-coluna input[type="number"] {
+  width: 45px;
+  padding: 3px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* 🔽 Bloco específico da Defesa */
+.defesa-linha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.defesa-label {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 1px;
+}
+
+.defesa-formula {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.valor-fixo {
+  font-size: 16px;
+  padding: 1px 15px;
+  font-weight: bold;
+}
+
+.sinal {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.coluna-defesa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coluna-defesa label {
+  font-size: 12px;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.coluna-defesa input {
+  width: 45px;
+  text-align: center;
+  padding: 3px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  font-size: 12px;
+}
+
+/* 🔽 Outros concertos de Resolução */
+.status-label,
+.status-titulo,
+.status-sub,
+.defesa-label,
+.coluna-defesa label,
+.status-defesa-explicacao {
+  white-space: nowrap; /* Evita quebra de linha */
+  overflow: hidden; /* Oculta excesso */
+  text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+}
+
+.personagem-box,
+.status-box,
+.atributos-box {
+  overflow: hidden;         /* Impede estouro visual */
+  word-wrap: break-word;    /* Força quebra se necessário */
+}
+
+/* 🔽Abaixo a Sessão Perícias*/
+.pericias-box {
+  margin-left: 30px;
+  width: 450px;
+  background-color: #111;
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tabela-pericias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linha-cabecalho, 
+.linha-pericia {
+  display: grid;
+  grid-template-columns: 2.5fr 1.1fr 1.1fr 1.1fr 1.1fr 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.coluna-nome,
+.coluna-aptidao,
+.coluna-mod,
+.coluna-mod-atrib,
+.coluna-mod-extra {
+  font-size: 14px;
+}
+
+input, 
+select {
+  width: 100%;
+  padding: 3px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.dado-botao {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dado-img {
+  width: 40px;
+  height: 26px;
+  transition: transform 0.2s ease;
+}
+
+.dado-img:hover {
+  transform: scale(1.3);
+}
+
+.aptidao-select {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 4.5px 6px;
+  border-radius: 10px;
+  font-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 16px 16px;
+  padding-right: 10px;
+}
+
+/* 🔽Resultado do Dado externo*/
+.popup-dado {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 10px 30px;
+  border-radius: 12px;
+  z-index: 9999;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  font-size: 18px;
+  min-width: 320px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.popup-dado button {
+  margin-top: 6px;
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* 🔽 caixa de combate*/
+.combate-box {
+  margin-top: 10px;
+}
+
+.combate-linha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#entrada-combate {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+/* NOVO: inverter a cor da imagem do dado */
+#botao-combate img {
+  filter: invert(1);
+  width: 18px 12px;
+  }
+
+  /* 🔽 Inventário*/
+  .inventario-box {
+  border: 1px solid white;
+  padding: 10px;
+  color: white;
+  font-family: 'Merriweather', serif;
+  background-color: black;
+  width: 90%;
+  border-radius: 8px;
+  margin-top: 20px;
+  position: relative;
+  overflow: visible; /* IMPORTANTE: permite conteúdo extra aparecer */
+  max-height: 400px; /* ou o valor que quiser para a altura da caixa */
+  overflow-y: scroll;
+}
+
+.inventario-box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
+}
+
+.inventario-box.dropdown-ativo {
+  padding-bottom: 100px;
+}
+
+.inventario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.inventario-titulo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.botao-mais {
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative; /* importante para o .dropdown-conteudo se posicionar em relação a este */
+}
+
+.dropdown-conteudo {
+  position: absolute;
+  top: 100%;
+  right: 0; /* ou left: 0, se preferir */
+  background-color: #000;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 6px;
+  z-index: 100; /* aumenta pra garantir que fica por cima */
+  display: none;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.dropdown-conteudo button {
+  background: none;
+  color: white;
+  border: none;
+  text-align: left;
+  padding: 4px 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-conteudo button:hover {
+  background-color: #222;
+}
+
+/* Mostrar menu quando ativo */
+.dropdown.ativo .dropdown-conteudo {
+  display: flex;
+}
+
+.inventario-item {
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: black;
+  color: white;
+}
+
+.inventario-item input,
+.inventario-item select {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 12px;
+  width: 100%;
+}
+
+.inventario-linha {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.botao-remover {
+  background-color: black;
+  color: red;
+  border: 1px solid red;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 6px;
+  cursor: pointer;
+  margin-top: 14px;
+  margin-left: 8px;
+  float: right;
+}
+
+/* 🔽 Habilidades e Aptidões*/
+.habilidades-box {
+  border: 1px solid white;
+  padding: 10px;
+  color: white;
+  font-family: 'Merriweather', serif;
+  background-color: black;
+  width: 90%;
+  border-radius: 8px;
+  margin-top: 20px;
+  position: relative;
+  overflow: visible; /* IMPORTANTE: permite conteúdo extra aparecer */
+  max-height: 400px; /* ou o valor que quiser para a altura da caixa */
+  overflow-y: scroll;
+}
+
+.habilidades-box::-webkit-scrollbar {
+  display: none;
+}
+
+.habilidades-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.habilidade-titulo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.botao-mais2 {
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.dropdown-conteudo2 {
+  position: absolute;
+  top: 100%;
+  right: 0; /* ou left: 0, se preferir */
+  background-color: #000;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 6px;
+  z-index: 100; /* aumenta pra garantir que fica por cima */
+  display: none;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.dropdown-conteudo2 button {
+  background: none;
+  color: white;
+  border: none;
+  text-align: left;
+  padding: 4px 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-conteudo2 button:hover {
+  background-color: #222;
+}
+
+/* Mostrar menu quando ativo */
+.dropdown.ativo .dropdown-conteudo2 {
+  display: flex;
+}
+
+.habilidade, .aptidao {
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.habilidade input,
+.aptidao input,
+.aptidao select,
+.habilidade textarea,
+.aptidao textarea {
+  background-color: #222;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  font-family: 'Merriweather', serif;
+}
+
+.habilidade textarea,
+.aptidao textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.habilidade .botao-remover,
+.aptidao .botao-remover {
+  background-color: #111;
+  color: red;
+  border: 1px solid red;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.linha-topo {
+  display: flex;
+  gap: 6px;
+}
+
+.habilidades-box.dropdown-ativo {
+  padding-bottom: 70px; /* ou ajuste conforme necessário */
+  max-height: 400px; /* aumenta a altura pra não cortar o dropdown */
+  transition: max-height 0.3s ease;
+}
+.botoes-salvar {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.botoes-salvar button {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Merriweather', serif;
+}
